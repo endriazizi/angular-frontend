@@ -1,0 +1,44 @@
+<p>-list works!</p>
+
+<p>player list!!</p>
+
+<!-- <div class="container">
+    <header class="jumbotron">
+      <p>{{ data.id }}</p>
+    </header>
+</div> -->
+
+<div>
+  <h1>NgFor Table Example</h1>
+  <table>
+      <thead>
+          <tr>
+              <th>nome</th>
+              <th>cognome</th>
+          
+          </tr>
+      </thead>
+      <tbody>
+          <tr *ngFor="let item of Players">
+            
+              <td>{{ item.nome }}</td>
+              <td>{{ item.cognome }}</td>
+    
+
+              <td>
+                  <button type="button" >Delete</button>
+              </td>
+          </tr>
+      </tbody>
+  </table>
+</div>
+
+
+<h2>My Heroes</h2>
+<ul >
+    <li *ngFor="let hero of Players | keyvalue ">
+    <span>{{hero.cognome }}</span> 
+    {{hero.key}}:{{hero.value}}
+
+  </li>
+</ul>

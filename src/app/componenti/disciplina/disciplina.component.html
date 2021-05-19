@@ -1,0 +1,38 @@
+<p>disciplina works! e Reka Muto!!</p>
+
+
+<!-- <tr *ngFor="let reka of Discipline">
+            
+    <td>{{ reka.nomeDisciplina }}</td> -->
+    <form [formGroup]="contactFormDiscipline" (ngSubmit)="submitDue()">
+<select formControlName="disciplina" class="form-select form-select-lg mb-3" aria-label=".form-select-lg example">
+
+  <option [ngValue]="null" selected>Open this select menu</option>
+  <!-- <option value="1">One</option> -->
+  <!-- <option *ngFor="let disciplina of Discipline" value="1">{{ disciplina.nomeDisciplina }}</option> -->
+  <option *ngFor="let disciplina of Discipline" [ngValue]="disciplina.nomeDisciplina">{{disciplina.nomeDisciplina}}</option>
+
+</select>
+
+<button type="submit">Submit</button>
+
+</form>
+
+<ng-template #elseTemplate>
+  <div>
+      Selected: {{selectedValue}}
+  </div>
+</ng-template>
+
+<div class="row">
+  <div class="col-sm-6">
+    <div *ngFor="let disciplina of listaEventi" class="card">
+      <div class="card-body">
+        <h5 class="card-title">{{disciplina.categoria}}</h5>
+        <p class="card-text">With supporting text below as a natural lead-in to additional content.</p>
+        <a href="#" class="btn btn-primary">Go somewhere</a>
+      </div>
+    </div>
+  </div>
+</div>
+
