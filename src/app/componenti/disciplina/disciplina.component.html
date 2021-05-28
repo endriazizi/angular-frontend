@@ -1,6 +1,36 @@
 <p>disciplina works! e Reka Muto!!</p>
 
 
+<p>You can do filter table data, in this case with observables and our <code>NgbHighlight</code> component used in Typeahead</p>
+
+<form>
+  <div class="form-group form-inline">
+      Full text search: <input class="form-control ml-2" type="text" [formControl]="filter"/>
+  </div>
+</form>
+
+<table class="table table-striped">
+  <thead>
+  <tr>
+    <th scope="col">#</th>
+    <th scope="col">Country</th>
+    <th scope="col">Area</th>
+    <th scope="col">Population</th>
+  </tr>
+  </thead>
+  <tbody>
+  <tr *ngFor="let country of countries$ | async; index as i">
+    <th scope="row">{{ i + 1 }}</th>
+    <td>
+      <img [src]="'https://upload.wikimedia.org/wikipedia/commons/' + country.flag" class="mr-2" style="width: 20px">
+      <ngb-highlight [result]="country.name" [term]="filter.value"></ngb-highlight>
+    </td>
+    <td><ngb-highlight [result]="country.area | number" [term]="filter.value"></ngb-highlight></td>
+    <td><ngb-highlight [result]="country.population | number" [term]="filter.value"></ngb-highlight></td>
+  </tr>
+  </tbody>
+</table>
+
 <!-- <tr *ngFor="let reka of Discipline">
             
     <td>{{ reka.nomeDisciplina }}</td> -->
@@ -25,8 +55,8 @@
 </ng-template>
 
 <div class="row">
-  <div class="col-sm-6">
-    <div *ngFor="let disciplina of listaEventi" class="card">
+  <div *ngFor="let disciplina of listaEventi" class="col-sm-6">
+    <div  class="card">
       <div class="card-body">
         <h5 class="card-title">{{disciplina.categoria}}</h5>
         <p class="card-text">With supporting text below as a natural lead-in to additional content.</p>

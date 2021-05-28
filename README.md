@@ -44,6 +44,15 @@ ng generate component componenti/homepage
 ng generate component componenti/about
 
 
+ng generate component componenti/onepage
+
+
+ng g s _services/atleti/atleti
+
+ng generate class /models/atleta/atleta --type=model
+
+
+
 
 
 

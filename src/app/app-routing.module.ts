@@ -18,11 +18,12 @@ import { DisciplinaComponent } from './componenti/disciplina/disciplina.componen
 import { AppComponent } from './app.component';
 import { NavigazioneComponent } from './componenti/navigazione/navigazione.component';
 import { HomeComponent } from './home/home.component';
+import { OnepageComponent } from './componenti/onepage/onepage.component';
 
 const routes: Routes = [
 
   // { path: '', pathMatch: 'full', redirectTo: 'create-employee' },
-  { path: '', component: NavigazioneComponent },
+  // { path: '', component: NavigazioneComponent },
 
 
   { path: 'create-player', component: AppComponent },
@@ -44,7 +45,9 @@ const routes: Routes = [
   { path: 'user', component: BoardUserComponent },
   { path: 'mod', component: BoardModeratorComponent },
   { path: 'admin', component: BoardAdminComponent },
-  // { path: '', redirectTo: 'home', pathMatch: 'full' },
+
+  { path: 'onepage', component: OnepageComponent },
+  { path: '', redirectTo: 'onepage', pathMatch: 'full' },
 
 ];
 

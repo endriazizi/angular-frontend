@@ -30,6 +30,8 @@ import { TeamComponent } from './componenti/team/team.component';
 import { DisciplinaComponent } from './componenti/disciplina/disciplina.component';
 import { AboutComponent } from './componenti/about/about.component';
 import { HomepageComponent } from './componenti/homepage/homepage.component';
+import { OnepageComponent } from './componenti/onepage/onepage.component';
+import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 
 
 @NgModule({
@@ -53,14 +55,16 @@ import { HomepageComponent } from './componenti/homepage/homepage.component';
     TeamComponent,
     DisciplinaComponent,
     AboutComponent,
-    HomepageComponent
+    HomepageComponent,
+    OnepageComponent
   ],
   imports: [
     BrowserModule,
     AppRoutingModule,
     ReactiveFormsModule,
     FormsModule,
-    HttpClientModule
+    HttpClientModule,
+    NgbModule
   ],
   providers: [authInterceptorProviders],
   bootstrap: [AppComponent]
