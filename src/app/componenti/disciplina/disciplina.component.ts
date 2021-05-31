@@ -14,6 +14,7 @@ import { DecimalPipe } from '@angular/common';
 
 import { Observable } from 'rxjs';
 import { map, startWith } from 'rxjs/operators';
+import { ProviderAst } from '@angular/compiler';
 
 
 
@@ -56,8 +57,8 @@ function search(text: string, pipe: PipeTransform): Country[] {
   return COUNTRIES.filter(country => {
     const term = text.toLowerCase();
     return country.name.toLowerCase().includes(term)
-        || pipe.transform(country.area).includes(term)
-        || pipe.transform(country.population).includes(term);
+      || pipe.transform(country.area).includes(term)
+      || pipe.transform(country.population).includes(term);
   });
 }
 
@@ -76,44 +77,56 @@ export class DisciplinaComponent implements OnInit {
   listaEventi?: Disciplina[];
 
   nomeDisciplina = '';
+  nomePunti = '';
   totPunti = '4';
+
+  punti = [
+    {id: 1, punteggio: "1"},
+    {id: 2, punteggio: "2"},
+    {id: 3, punteggio: "3"},
+    {id: 4, punteggio: "4"},
+    {id: 5, punteggio: "5"}
+  ];
 
   contactFormDiscipline: FormGroup;
 
+  contactFormPunti: FormGroup;
+
   countries$: Observable<Country[]>;
 
-  
+
   filter = new FormControl('')
 
-  constructor(private disciplinaService: DisiplinaService, 
+
+  msg: string;
+
+
+  constructor(private disciplinaService: DisiplinaService,
     private atletiService: AtletiService,
-    private fb: FormBuilder, 
+    private fb: FormBuilder,
     pipe: DecimalPipe,
-    ) {
+  ) {
 
     this.countries$ = this.filter.valueChanges.pipe(
       startWith(''),
       map(text => search(text, pipe))
     );
-   }
+  }
 
-  ngOnInit(): void {
+  clickEvent() {
+    this.msg = 'Button is Clicked';
+    console.log(this.msg);
 
-    this.atletiService.getAtletafilterbypunteggio(this.totPunti).subscribe(
+    return this.msg;
+  }
 
-      data => {
-        this.Atleti = data;
-        // console.log("content", this.content);
-        // this.Players = Array.of(this.Players);
+  // ngOnInit(): void {
 
-        // console.log(this.Players);
-        console.log(data);
-      },
-      err => {
-        this.Atleti = JSON.parse(err.error).message;
-      }
-    );
+  ngOnInit() {
 
+
+
+    // this.prova();
 
     this.disciplinaService.getDisciplina().subscribe(
 
@@ -144,7 +157,7 @@ export class DisciplinaComponent implements OnInit {
 
     this.contactFormDiscipline.get("disciplina").valueChanges
       .subscribe(value => {
-        console.log("value: ", value);
+        console.log("value get disciplina: ", value);
 
         this.nomeDisciplina = value;
 
@@ -152,8 +165,43 @@ export class DisciplinaComponent implements OnInit {
       })
 
 
+      this.contactFormPunti = this.fb.group({
+        punti: [null]
+      });
+  
+      this.contactFormPunti.get("punti").valueChanges
+        .subscribe(value => {
+          console.log("value get punti: ", value);
+  
+          this.totPunti = value;
+  
+          this.onDisciplinaPunti(value);
+        })
+
+
 
   }
+
+
+  onDisciplinaPunti(value) {
+    console.log('onDisciplinaPunti')
+    console.log("value punti chiamata api: ", value)
+    this.atletiService.getAtletafilterbypunteggio(value).subscribe(
+
+      data => {
+        this.Atleti = data;
+        // console.log("content", this.content);
+        // this.Players = Array.of(this.Players);
+
+        // console.log(this.Players);
+        console.log(data);
+      },
+      err => {
+        this.Atleti = JSON.parse(err.error).message;
+      }
+    )
+  }
+
 
 
   clickFunction() {
@@ -169,7 +217,7 @@ export class DisciplinaComponent implements OnInit {
 
   onDisciplinaChanged(value) {
     console.log('onCountryChanged')
-    console.log(value)
+    console.log("value disciplina: ", value)
 
     // http://localhost:3000/api/lista/gare/eventi/filterbydisciplina?nomeDisciplina=Ginnastica Artistica Maschile
 
